@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(vins_estimator)
 
-set(CMAKE_BUILD_TYPE "Release")
+set(CMAKE_BUILD_TYPE "Debug")
 set(CMAKE_CXX_FLAGS "-std=c++11")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O0 -Wall -g")
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
@@ -24,8 +24,9 @@ include_directories(
   ${Boost_INCLUDE_DIRS}
 )
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY   ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY   ${PROJECT_SOURCE_DIR}/lib)
+
 
 add_library(camera_model SHARED
     src/camera_models/chessboard/Chessboard.cc
@@ -75,9 +76,9 @@ target_link_libraries(MyVio
   camera_model)
 
 add_executable(run_euroc test/run_euroc.cpp)
-target_link_libraries(run_euroc 
-  MyVio  
-  -lpthread) 
+
+target_link_libraries(run_euroc
+		MyVio  -lpthread)
 
 add_executable(testCurveFitting test/CurveFitting.cpp)
 target_link_libraries(testCurveFitting MyVio)
