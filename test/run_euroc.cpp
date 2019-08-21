@@ -45,7 +45,7 @@ void PubImuData()
 		ssImuData >> dStampNSec >> vGyr.x() >> vGyr.y() >> vGyr.z() >> vAcc.x() >> vAcc.y() >> vAcc.z();
 		// cout << "Imu t: " << fixed << dStampNSec << " gyr: " << vGyr.transpose() << " acc: " << vAcc.transpose() << endl;
 		pSystem->PubImuData(dStampNSec / 1e9, vGyr, vAcc);
-		usleep(5000*nDelayTimes);
+		usleep(6000*nDelayTimes);
 	}
 	fsImu.close();
 }
@@ -168,7 +168,7 @@ int main(int argc, char **argv)
 	std::thread thd_PubImageData(PubImageData);
 
 #ifdef __linux__	
-	std::thread thd_Draw(&System::Draw, pSystem);
+//	std::thread thd_Draw(&System::Draw, pSystem);
 #elif __APPLE__
 	DrawIMGandGLinMainThrd();
 #endif

@@ -161,9 +161,9 @@ void System::PubImageData(double dStampSec, Mat &img)
 			cv::circle(show_img, trackerData[0].cur_pts[j], 2, cv::Scalar(255 * (1 - len), 0, 255 * len), 2);
 		}
 
-        cv::namedWindow("IMAGE", CV_WINDOW_AUTOSIZE);
-		cv::imshow("IMAGE", show_img);
-        cv::waitKey(1);
+//        cv::namedWindow("IMAGE", CV_WINDOW_AUTOSIZE);
+//		cv::imshow("IMAGE", show_img);
+//        cv::waitKey(1);
 	}
 #endif    
     // cout << "5 PubImage" << endl;
@@ -257,7 +257,7 @@ void System::ProcessBackEnd()
         con.wait(lk, [&] {
             return (measurements = getMeasurements()).size() != 0;
         });
-        if( measurements.size() > 1){
+        if( measurements.size() > 0){
         cout << "1 getMeasurements size: " << measurements.size() 
             << " imu sizes: " << measurements[0].first.size()
             << " feature_buf size: " <<  feature_buf.size()

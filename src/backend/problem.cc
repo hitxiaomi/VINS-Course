@@ -173,6 +173,7 @@ bool Problem::Solve(int iterations) {
         std::cerr << "\nCannot solve problem without edges or verticies" << std::endl;
         return false;
     }
+    bool verbose=false;
 
     TicToc t_solve;
     // 统计优化变量的维数，为构建 H 矩阵做准备
@@ -186,6 +187,7 @@ bool Problem::Solve(int iterations) {
     int iter = 0;
     double last_chi_ = 1e20;
     while (!stop && (iter < iterations)) {
+        if(verbose)
         std::cout << "iter: " << iter << " , chi= " << currentChi_ << " , Lambda= " << currentLambda_ << std::endl;
         bool oneStepSuccess = false;
         int false_cnt = 0;
@@ -243,8 +245,11 @@ bool Problem::Solve(int iterations) {
         }
         last_chi_ = currentChi_;
     }
-    std::cout << "problem solve cost: " << t_solve.toc() << " ms" << std::endl;
-    std::cout << "   makeHessian cost: " << t_hessian_cost_ << " ms" << std::endl;
+    if(verbose){
+        std::cout << "problem solve cost: " << t_solve.toc() << " ms" << std::endl;
+        std::cout << "   makeHessian cost: " << t_hessian_cost_ << " ms" << std::endl;
+    }
+
     t_hessian_cost_ = 0.;
     return true;
 }
